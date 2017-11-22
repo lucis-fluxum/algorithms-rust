@@ -1,27 +1,31 @@
-pub struct Bag<T> {
-    size: i32,
-    items: Vec<T>,
-}
+use std::slice;
+
+pub struct Bag<T>(Vec<T>);
 
 impl<T> Bag<T> {
     pub fn new() -> Bag<T> {
-        Bag {
-            size: 0,
-            items: Vec::new(),
-        }
+        Bag(Vec::new())
     }
 
     pub fn add(&mut self, item: T) {
-        self.items.push(item);
-        self.size += 1;
+        self.0.push(item);
     }
 
     pub fn is_empty(&self) -> bool {
-        self.size() == 0
+        self.0.is_empty()
     }
 
-    pub fn size(&self) -> i32 {
-        self.size
+    pub fn size(&self) -> usize {
+        self.0.len()
+    }
+}
+
+impl<'a, T> IntoIterator for &'a Bag<T> {
+    type Item = &'a T;
+    type IntoIter = slice::Iter<'a, T>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.0.iter()
     }
 }
 
@@ -31,14 +35,20 @@ mod tests {
 
     #[test]
     fn basic_behavior() {
-        let mut b: Bag<String> = Bag::new();
+        let mut bag: Bag<String> = Bag::new();
 
-        assert_eq!(0, b.size());
-        assert!(b.is_empty());
+        assert_eq!(0, bag.size());
+        assert!(bag.is_empty());
 
-        b.add(String::from("string"));
+        bag.add(String::from("string1"));
+        bag.add(String::from("string2"));
+        bag.add(String::from("string3"));
 
-        assert_eq!(1, b.size());
-        assert!(!b.is_empty());
+        for item in &bag {
+            assert_eq!(7, item.len());
+        }
+
+        assert_eq!(3, bag.size());
+        assert!(!bag.is_empty());
     }
 }
