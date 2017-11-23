@@ -37,8 +37,10 @@ mod tests {
 
     #[test]
     fn evaluates_single_expression() {
-        let sqrt2 = (2 as f64).sqrt();
-        assert_eq!(sqrt2, evaluate_expression("( sqrt 2.0 )").unwrap());
+        assert_eq!(
+            (2 as f64).sqrt(),
+            evaluate_expression("( sqrt 2.0 )").unwrap()
+        );
         assert_eq!(16 as f64, evaluate_expression("( 3.2 * 5.0 )").unwrap());
     }
 
