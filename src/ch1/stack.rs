@@ -15,6 +15,10 @@ impl<T> Stack<T> {
         self.0.pop()
     }
 
+    pub fn peek(&self) -> Option<&T> {
+        self.0.last()
+    }
+
     pub fn is_empty(&self) -> bool {
         self.0.is_empty()
     }
@@ -49,6 +53,7 @@ mod tests {
         stack.push(3);
 
         assert_eq!(3, stack.size());
+        assert_eq!(Some(&3), stack.peek());
         assert!(!stack.is_empty());
 
         for item in &stack {
