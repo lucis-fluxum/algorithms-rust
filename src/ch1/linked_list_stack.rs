@@ -35,7 +35,7 @@ impl<T> LinkedListStack<T> {
         self.size += 1;
     }
 
-    pub fn pop(&mut self) {
+    pub fn delete(&mut self) {
         if !Rc::ptr_eq(&self.first, &self.last) {
             let new_first: Rc<Node<T>> = Rc::get_mut(&mut self.first).unwrap().next.take().unwrap();
             self.first = new_first;
@@ -104,7 +104,7 @@ mod tests {
     }
 
     #[test]
-    fn push_and_pop() {
+    fn push_and_delete() {
         let mut list = LinkedListStack::new(0);
         list.push(1);
 
@@ -117,13 +117,13 @@ mod tests {
             assert_eq!(Some(0), node.value);
         }
 
-        list.pop();
+        list.delete();
 
         // Old value now at the top
         assert_eq!(Some(0), list.first.value);
         assert_eq!(1, list.size());
 
-        list.pop();
+        list.delete();
         // Pop with 1 value has no effect
         assert_eq!(Some(0), list.first.value);
         assert_eq!(1, list.size());
@@ -141,8 +141,8 @@ mod tests {
             assert_eq!(vec![&2, &1, &0], elements);
         }
 
-        list.pop();
-        list.pop();
+        list.delete();
+        list.delete();
 
         let elements: Vec<&i32> = list.into_iter().collect();
         assert_eq!(vec![&0], elements);
