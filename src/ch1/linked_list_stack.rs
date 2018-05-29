@@ -14,14 +14,15 @@ pub struct Node<T> {
 }
 
 impl<T> LinkedListStack<T> {
-    pub fn new() -> LinkedListStack<T> {
+    pub fn new(init: T) -> LinkedListStack<T> {
         let node = Rc::new(Node {
-            value: None,
+            value: Some(init),
             next: None,
         });
         LinkedListStack {
             first: Rc::clone(&node),
             last: node,
+            size: 1,
         }
     }
 
@@ -43,7 +44,8 @@ impl<T> LinkedListStack<T> {
     }
 
     pub fn is_empty(&self) -> bool {
-        Rc::ptr_eq(&self.first, &self.last) && Rc::get(&self.first).unwrap().value.is_none();
+        // Always contains at least 1 item
+        false
     }
 
     pub fn size(&self) -> usize {
@@ -57,11 +59,36 @@ mod tests {
 
     #[test]
     fn basic_behavior() {
-        let list: LinkedListStack<i32> = LinkedListStack::new();
-        let first: &Node<i32> = Rc::get(&list.first).unwrap();
-        assert_eq!(None, first.value);
-        assert_eq!(None, first.next);
-        assert!(list.is_empty());
+        let list = LinkedListStack::new(0);
+        assert_eq!(Some(0), list.first.value);
+        assert_eq!(None, list.first.next);
+        assert!(!list.is_empty());
+        assert_eq!(1, list.size());
+    }
+
+    #[test]
+    fn push_and_pop() {
+        let mut list = LinkedListStack::new(0);
+        list.push(1);
+
+        // New value is on top of the stack
+        assert_eq!(Some(1), list.first.value);
+        assert_eq!(2, list.size());
+
+        // Old value is at the bottom
+        if let Some(ref node) = list.first.next {
+            assert_eq!(Some(0), node.value);
+        }
+
+        list.pop();
+
+        // Old value now at the top
+        assert_eq!(Some(0), list.first.value);
+        assert_eq!(1, list.size());
+
+        list.pop();
+        // Pop with 1 value has no effect
+        assert_eq!(Some(0), list.first.value);
         assert_eq!(1, list.size());
     }
 }
