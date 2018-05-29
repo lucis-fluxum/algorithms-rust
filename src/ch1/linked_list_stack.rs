@@ -53,6 +53,19 @@ impl<T> LinkedListStack<T> {
     }
 }
 
+struct LinkedListStackIterator<'a, T: 'a> {
+    index: usize,
+    list: &'a LinkedListStack<T>
+}
+
+impl<'a, T> Iterator for LinkedListStackIterator<'a, T> {
+    type Item = T;
+
+    fn next(&mut self) -> Option<T> {
+
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -90,5 +103,10 @@ mod tests {
         // Pop with 1 value has no effect
         assert_eq!(Some(0), list.first.value);
         assert_eq!(1, list.size());
+    }
+
+    #[test]
+    fn iteration() {
+        // TODO
     }
 }
