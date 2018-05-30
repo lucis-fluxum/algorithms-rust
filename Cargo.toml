@@ -3,4 +3,6 @@ name = "algorithms"
 version = "0.1.0"
 authors = ["Luc Street <lucis-fluxum@users.noreply.github.com>"]
 
-[dependencies]
+[dev-dependencies]
+rand = "0.5"
+statistical = "0.1.1"
