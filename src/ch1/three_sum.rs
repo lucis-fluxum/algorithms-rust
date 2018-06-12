@@ -29,7 +29,7 @@ mod tests {
         assert_eq!(3, count(&vec![-1, -2, 3, -4, 5, 6]));
     }
 
-    #[test]
+    #[test] #[ignore]
     // This test assumes the host machine is consistent within a small tolerance.
     fn matches_efficiency_model() {
         // model: T = a*N^3
