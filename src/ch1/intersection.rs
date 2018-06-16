@@ -6,16 +6,23 @@ pub fn intersection<'a, T>(first: &'a [T], second: &'a [T]) -> Vec<&'a T>
 where
     T: Hash + Eq,
 {
-    // Allocate worst-case sizes for these
-    let mut existences = HashSet::with_capacity(first.len().max(second.len()));
-    let mut intersection = HashSet::with_capacity(first.len().min(second.len()));
+    // Make sure we're creating a set from the smaller array
+    let (first, second) = if first.len() > second.len() {
+        (second, first)
+    } else {
+        (first, second)
+    };
+
+    // Worst-case sizes
+    let mut set = HashSet::with_capacity(first.len());
+    let mut intersection = HashSet::with_capacity(first.len());
 
     for item in first {
-        existences.insert(item);
+        set.insert(item);
     }
 
     for item in second {
-        if existences.contains(item) {
+        if set.contains(item) {
             intersection.insert(item);
         }
     }
