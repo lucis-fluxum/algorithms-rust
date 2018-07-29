@@ -18,7 +18,7 @@ pub fn count(nums: &[i32]) -> usize {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use ch1::stopwatch::Stopwatch;
+    use crate::ch1::stopwatch::Stopwatch;
     use rand::{thread_rng, Rng};
     use statistical::univariate::average_deviation;
 

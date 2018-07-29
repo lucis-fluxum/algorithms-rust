@@ -1,4 +1,4 @@
-use ch1::stack::Stack;
+use crate::ch1::stack::Stack;
 
 pub fn check_balance(input: &str) -> bool {
     let mut opens: Stack<char> = Stack::new();

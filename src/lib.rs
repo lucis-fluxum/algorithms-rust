@@ -1,6 +1,3 @@
-#[cfg(test)]
-extern crate rand;
-#[cfg(test)]
-extern crate statistical;
+#![warn(rust_2018_idioms)]
 
 pub mod ch1;
