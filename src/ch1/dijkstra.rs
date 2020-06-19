@@ -1,4 +1,4 @@
-use crate::ch1::stack::Stack;
+use super::stack::Stack;
 
 pub fn evaluate_expression(expression: &str) -> Option<f64> {
     let mut ops: Stack<&str> = Stack::new();

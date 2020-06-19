@@ -1,11 +1,9 @@
-cargo-features = ["edition"]
-
 [package]
 name = "algorithms"
 version = "0.1.0"
-edition = "2018"
 authors = ["Luc Street <lucis-fluxum@users.noreply.github.com>"]
+edition = "2018"
 
-[dev-dependencies]
-rand = "0.5"
-statistical = "0.1.1"
+[dependencies]
+rand = "0.7"
+statistical = "1.0"
